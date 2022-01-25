@@ -1,5 +1,5 @@
 const Persist = require("../model/fs/fs.model");
-const persist = new Persist("../data.json");
+const persist = new Persist("./data.json");
 
 const getAll = async (req, res) => {
   try {

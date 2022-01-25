@@ -1,9 +1,9 @@
 const express = require("express");
 const app = express();
-require("dotenv").config({ path: "../.env" });
+require("dotenv").config({ path: "./.env" });
 const PORT = process.env.PORT;
-const routerProducts = require("./router/products.routes");
-const routerCart = require("./router/cart.routes");
+const routerProducts = require("./src/router/products.routes");
+const routerCart = require("./src/router/cart.routes");
 
 const server = app.listen(PORT, () => {
   console.log(`Server on port ${server.address().port}`);

@@ -1,6 +1,6 @@
 const res = require("express/lib/response");
 const Persist = require("../model/fs/fs.model");
-const persist = new Persist("../carts.json");
+const persist = new Persist("./carts.json");
 
 const createCart = async (req, res) => {
   try {
