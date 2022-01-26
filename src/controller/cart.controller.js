@@ -9,19 +9,21 @@ const createCart = async (req, res) => {
       timestamp: Date(Date.now()),
       products: req.body,
     };
-    let data = await persist.save(newCart);
-    res.status(201).json(data);
+    let idCart = await persist.save(newCart);
+    res.status(201).json({ status: true, data: idCart });
   } catch (err) {
-    res.status(402).json({ err: "error" });
+    res.status(402).json({ err: "error to create cart" });
   }
 };
 
 const deleteCart = async (req, res) => {
   try {
     let data = await persist.delete(req.params.id);
-    res.status(201).json({ data: `cart by id ${data} eliminated` });
+    res
+      .status(201)
+      .json({ status: true, data: `cart by id ${data} eliminated` });
   } catch (err) {
-    res.status(402).json({ err: "error" });
+    res.status(402).json({ err: "error to eliminated cart" });
   }
 };
 
@@ -29,9 +31,9 @@ const getProductsCart = async (req, res) => {
   try {
     let data = await persist.open();
     let cartId = data.filter((cart) => cart.id === parseInt(req.params.id));
-    res.status(201).json({ products: cartId[0].products });
+    res.status(201).json({ status: true, data: cartId[0].products });
   } catch (err) {
-    res.status(402).json({ err: "error" });
+    res.status(402).json({ err: "error to get products by cart" });
   }
 };
 
@@ -45,11 +47,12 @@ const addProductToCart = async (req, res) => {
     });
     cartId.products = newProducts;
     await persist.modify(cartId);
-    res
-      .status(201)
-      .json({ data: `products add to cart by id ${req.params.id}` });
+    res.status(201).json({
+      status: true,
+      data: `products add to cart by id ${req.params.id}`,
+    });
   } catch (err) {
-    res.status(402).json({ err: "error" });
+    res.status(402).json({ err: "error to add products at cart" });
   }
 };
 
@@ -63,10 +66,13 @@ const deleteProductByCart = async (req, res) => {
     cartId[0].products = newProducts;
     await persist.modify(cartId);
     res.status(201).json({
+      status: true,
       data: `eliminated product by id ${req.params.id_prod} by cart id ${req.params.id}`,
     });
   } catch (err) {
-    res.status(402).json({ err: "error" });
+    res
+      .status(402)
+      .json({ err: `error to eliminate product id:${req.params.id} by cart` });
   }
 };
 

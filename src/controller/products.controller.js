@@ -3,10 +3,10 @@ const persist = new Persist("./data.json");
 
 const getAll = async (req, res) => {
   try {
-    let data = await persist.open();
-    res.status(201).json(data);
+    let product = await persist.open();
+    res.status(201).json({ status: true, data: product });
   } catch (err) {
-    res.status(400).json({ err: "producto no validos" });
+    res.status(401).json({ err: "producto no validos" });
   }
 };
 
@@ -14,9 +14,9 @@ const getById = async (req, res) => {
   try {
     let data = await persist.open();
     let product = data.filter((data) => data.id === parseInt(req.params.id));
-    res.status(201).json(product);
+    res.status(201).json({ status: true, data: product });
   } catch (err) {
-    res.status(400).json({ err: "producto no valido" });
+    res.status(401).json({ err: "producto no valido" });
   }
 };
 
@@ -34,15 +34,16 @@ const postProduct = async (req, res) => {
         stock: req.body.stock,
       };
       persist.save(newProduct);
-      res.status(201).json("producto guardado");
+      res.status(201).json({ status: true, data: "producto guardado" });
     } else {
-      res.status(401).json({
+      res.status(201).json({
+        status: false,
         err: -1,
         description: `route /products & method post not authorized`,
       });
     }
   } catch (err) {
-    res.status(400).json({ err: "producto no valido" });
+    res.status(401).json({ err: "producto no valido" });
   }
 };
 
@@ -63,15 +64,18 @@ const putProduct = async (req, res) => {
 
       let data = await persist.modify(existData);
 
-      res.status(201).json({ data: `product by id ${req.params.id} modify` });
+      res
+        .status(201)
+        .json({ status: true, data: `product by id ${req.params.id} modify` });
     } else {
-      res.status(401).json({
+      res.status(201).json({
+        status: false,
         err: -1,
         description: `route /products/${req.params.id} & method put not authorized`,
       });
     }
   } catch (err) {
-    res.status(400).json({ err: "producto no modificado" });
+    res.status(401).json({ err: "producto no modificado" });
   }
 };
 
@@ -79,15 +83,16 @@ const deleteProduct = async (req, res) => {
   try {
     if (req.body.token) {
       await persist.delete(req.params.id);
-      res.status(201).json("producto eliminado");
+      res.status(201).json({ status: true, data: "producto eliminado" });
     } else {
-      res.status(401).json({
+      res.status(201).json({
+        status: false,
         err: -1,
         description: `route /products/${req.params.id} & method delete not authorized`,
       });
     }
   } catch (err) {
-    res.status(400).json({ err: "producto modificado" });
+    res.status(401).json({ err: "producto modificado" });
   }
 };
 
