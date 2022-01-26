@@ -10,7 +10,10 @@ const createCart = async (req, res) => {
       products: req.body,
     };
     let idCart = await persist.save(newCart);
-    res.status(201).json({ status: true, data: idCart });
+    res.status(201).json({
+      status: true,
+      data: `´create cart successfully by id:${idCart}`,
+    });
   } catch (err) {
     res.status(402).json({ err: "error to create cart" });
   }
@@ -33,7 +36,11 @@ const getProductsCart = async (req, res) => {
     let cartId = data.filter((cart) => cart.id === parseInt(req.params.id));
     res.status(201).json({ status: true, data: cartId[0].products });
   } catch (err) {
-    res.status(402).json({ err: "error to get products by cart" });
+    res
+      .status(404)
+      .json({
+        err: `error to get products by cart or not exist cart by id ${req.params.id}`,
+      });
   }
 };
 
@@ -52,7 +59,11 @@ const addProductToCart = async (req, res) => {
       data: `products add to cart by id ${req.params.id}`,
     });
   } catch (err) {
-    res.status(402).json({ err: "error to add products at cart" });
+    res
+      .status(402)
+      .json({
+        err: `error to add products at cart or not exist cart by id ${req.params.id}`,
+      });
   }
 };
 

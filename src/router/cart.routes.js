@@ -10,7 +10,7 @@ const {
 
 router.post("/cart", createCart);
 router.delete("/cart/:id", deleteCart);
-router.get("/cart/:id", getProductsCart);
+router.get("/cart/:id/products", getProductsCart);
 router.put("/cart/:id/products", addProductToCart);
 router.delete("/cart/:id/products/:id_prod", deleteProductByCart);
 module.exports.cartRoutes = router;
