@@ -12,7 +12,8 @@ const createCart = async (req, res) => {
     let idCart = await persist.save(newCart);
     res.status(201).json({
       status: true,
-      data: `´create cart successfully by id:${idCart}`,
+      data: `create cart successfully by id:${idCart}`,
+      id: idCart,
     });
   } catch (err) {
     res.status(402).json({ err: "error to create cart" });
@@ -24,7 +25,7 @@ const deleteCart = async (req, res) => {
     let data = await persist.delete(req.params.id);
     res
       .status(201)
-      .json({ status: true, data: `cart by id ${data} eliminated` });
+      .json({ status: true, data: `cart by id ${data} eliminated`, id: data });
   } catch (err) {
     res.status(402).json({ err: "error to eliminated cart" });
   }
@@ -36,11 +37,9 @@ const getProductsCart = async (req, res) => {
     let cartId = data.filter((cart) => cart.id === parseInt(req.params.id));
     res.status(201).json({ status: true, data: cartId[0].products });
   } catch (err) {
-    res
-      .status(404)
-      .json({
-        err: `error to get products by cart or not exist cart by id ${req.params.id}`,
-      });
+    res.status(404).json({
+      err: `error to get products by cart or not exist cart by id ${req.params.id}`,
+    });
   }
 };
 
@@ -57,13 +56,12 @@ const addProductToCart = async (req, res) => {
     res.status(201).json({
       status: true,
       data: `products add to cart by id ${req.params.id}`,
+      id: req.params.id,
     });
   } catch (err) {
-    res
-      .status(402)
-      .json({
-        err: `error to add products at cart or not exist cart by id ${req.params.id}`,
-      });
+    res.status(402).json({
+      err: `error to add products at cart or not exist cart by id ${req.params.id}`,
+    });
   }
 };
 
@@ -79,6 +77,7 @@ const deleteProductByCart = async (req, res) => {
     res.status(201).json({
       status: true,
       data: `eliminated product by id ${req.params.id_prod} by cart id ${req.params.id}`,
+      id: req.params.id,
     });
   } catch (err) {
     res
