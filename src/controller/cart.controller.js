@@ -7,7 +7,7 @@ const createCart = async (req, res) => {
     let newCart = {
       id: await persist.getLastId(),
       timestamp: Date(Date.now()),
-      products: req.body,
+      products: [req.body],
     };
     let idCart = await persist.save(newCart);
     res.status(201).json({
@@ -45,14 +45,14 @@ const getProductsCart = async (req, res) => {
 
 const addProductToCart = async (req, res) => {
   try {
-    let data = await persist.open();
-    let cartId = data.filter((cart) => cart.id === parseInt(req.params.id));
-    let newProducts = cartId[0].products;
-    req.body.map((data) => {
-      return newProducts.push(data);
-    });
-    cartId.products = newProducts;
-    await persist.modify(cartId);
+    let existData = await persist.open();
+    let index = existData.findIndex(
+      (data) => data.id === parseInt(req.params.id)
+    );
+
+    existData[index].products.push(req.body);
+
+    await persist.modify(existData);
     res.status(201).json({
       status: true,
       data: `products add to cart by id ${req.params.id}`,
