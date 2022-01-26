@@ -4,7 +4,13 @@ const persist = new Persist("./data.json");
 const getAll = async (req, res) => {
   try {
     let product = await persist.open();
-    res.status(201).json({ status: true, data: product });
+    if (product.length > 0) {
+      res.status(201).json({ status: true, data: product });
+    } else if (product.length === 0) {
+      res.status(404).json({
+        err: `not products to view`,
+      });
+    }
   } catch (err) {
     res.status(401).json({ err: "producto no validos" });
   }
@@ -14,9 +20,13 @@ const getById = async (req, res) => {
   try {
     let data = await persist.open();
     let product = data.filter((data) => data.id === parseInt(req.params.id));
-    res.status(201).json({ status: true, data: product });
+    if (product.length > 0) {
+      res.status(201).json({ status: true, data: product });
+    } else if (product.length === 0) {
+      res.status(404).json({ err: `product by id:${req.params.id} not exist` });
+    }
   } catch (err) {
-    res.status(401).json({ err: "producto no valido" });
+    res.status(401).json({ err: `error to get product` });
   }
 };
 
@@ -34,7 +44,7 @@ const postProduct = async (req, res) => {
         stock: req.body.stock,
       };
       persist.save(newProduct);
-      res.status(201).json({ status: true, data: "producto guardado" });
+      res.status(201).json({ status: true, data: "product save" });
     } else {
       res.status(201).json({
         status: false,
@@ -75,15 +85,15 @@ const putProduct = async (req, res) => {
       });
     }
   } catch (err) {
-    res.status(401).json({ err: "producto no modificado" });
+    res.status(401).json({ err: "producto not modify" });
   }
 };
 
 const deleteProduct = async (req, res) => {
   try {
     if (req.body.token) {
-      await persist.delete(req.params.id);
-      res.status(201).json({ status: true, data: "producto eliminado" });
+      let data = await persist.delete(req.params.id);
+      res.status(201).json({ status: true, data: "product eliminated" });
     } else {
       res.status(201).json({
         status: false,
@@ -92,7 +102,7 @@ const deleteProduct = async (req, res) => {
       });
     }
   } catch (err) {
-    res.status(401).json({ err: "producto modificado" });
+    res.status(401).json({ err: "product eliminated" });
   }
 };
 
