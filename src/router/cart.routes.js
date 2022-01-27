@@ -8,10 +8,10 @@ const {
   deleteProductByCart,
 } = require("../controller/cart.controller");
 
-router.post("/cart", createCart);
-router.delete("/cart/:id", deleteCart);
-router.get("/cart/:id/products", getProductsCart);
-router.put("/cart/:id/products", addProductToCart);
-router.delete("/cart/:id/products/:id_prod", deleteProductByCart);
+router.post("/", createCart);
+router.delete("/:id", deleteCart);
+router.get("/:id/products", getProductsCart);
+router.put("/:id/products", addProductToCart);
+router.delete("/:id/products/:id_prod", deleteProductByCart);
 
 module.exports.cartRoutes = router;
