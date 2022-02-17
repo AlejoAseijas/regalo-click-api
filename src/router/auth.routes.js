@@ -4,4 +4,4 @@ const { postAuth } = require("../controller/auth.controller");
 
 router.post("/", postAuth);
 
-module.exports.authRouter = router;
+module.exports.route = router;

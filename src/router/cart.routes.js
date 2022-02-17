@@ -14,4 +14,4 @@ router.get("/:id/products", getProductsCart);
 router.put("/:id/products", addProductToCart);
 router.delete("/:id/products/:id_prod", deleteProductByCart);
 
-module.exports.cartRoutes = router;
+module.exports.route = router;
