@@ -1,5 +1,5 @@
-const auth = require("./auth.routes");
-const cart = require("./cart.routes");
-const products = require("./products.routes");
+import auth from "./auth.routes";
+import cart from "./cart.routes";
+import products from "./products.routes";
 
-module.exports = { auth, products, cart };
+export { auth, products, cart };

@@ -1,5 +1,4 @@
-const res = require("express/lib/response");
-const Persist = require("../model/fs/fs.model");
+import Persist from "../model/fs/fs.model";
 const persist = new Persist("./carts.json");
 
 const createCart = async (req, res) => {
@@ -86,7 +85,7 @@ const deleteProductByCart = async (req, res) => {
   }
 };
 
-module.exports = {
+export {
   createCart,
   deleteCart,
   getProductsCart,

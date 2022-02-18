@@ -106,4 +106,4 @@ const deleteProduct = async (req, res) => {
   }
 };
 
-module.exports = { getAll, getById, postProduct, putProduct, deleteProduct };
+export { getAll, getById, postProduct, putProduct, deleteProduct };

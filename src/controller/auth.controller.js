@@ -13,6 +13,4 @@ const postAuth = async (req, res) => {
   }
 };
 
-module.exports = {
-  postAuth,
-};
+export { postAuth };

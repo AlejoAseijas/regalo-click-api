@@ -1,6 +1,7 @@
-const express = require("express");
+import express from "express";
 const app = express();
-const { auth, cart, products } = require("../router/index.routes");
+
+import { auth, cart, products } from "../router/index.routes";
 const cors = require("cors");
 
 app.use(cors());
@@ -17,5 +18,3 @@ app.use((req, res) => {
     description: `route ${req.url} & method ${req.method} not implemented`,
   });
 });
-
-module.exports = app;
