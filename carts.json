@@ -1,1 +1,44 @@
-[{"id":1,"timestamp":"Wed Jan 26 2022 19:40:23 GMT-0300 (hora estándar de Argentina)","products":[]},{"id":2,"timestamp":"Wed Jan 26 2022 19:40:42 GMT-0300 (hora estándar de Argentina)","products":[{"id":1,"timestamp":"","name":"oki","description":"","code":"","photho":"","price":145,"stock":10},{"id":111,"timestamp":"","name":"oki","description":"","code":"","photho":"","price":145,"stock":10}]},{"id":3,"timestamp":"Wed Jan 26 2022 19:40:46 GMT-0300 (hora estándar de Argentina)","products":[{"id":1,"timestamp":"","name":"oki","description":"","code":"","photho":"","price":145,"stock":10}]}]
+[
+    {
+        "id": 2,
+        "timestamp": "Wed Jan 26 2022 19:40:42 GMT-0300 (hora estándar de Argentina)",
+        "products": [
+            {
+                "id": 1,
+                "timestamp": "",
+                "name": "oki",
+                "description": "",
+                "code": "",
+                "photho": "",
+                "price": 145,
+                "stock": 10
+            },
+            {
+                "id": 111,
+                "timestamp": "",
+                "name": "oki",
+                "description": "",
+                "code": "",
+                "photho": "",
+                "price": 145,
+                "stock": 10
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "timestamp": "Wed Jan 26 2022 19:40:46 GMT-0300 (hora estándar de Argentina)",
+        "products": [
+            {
+                "id": 1,
+                "timestamp": "",
+                "name": "oki",
+                "description": "",
+                "code": "",
+                "photho": "",
+                "price": 145,
+                "stock": 10
+            }
+        ]
+    }
+]
